@@ -5,12 +5,13 @@ from utils.bbox_utils import get_bbox_width, get_center_of_bbox
 
 class Tracker:
     def __init__(self, model_path):
-        self.model = YOLO(model_path)
+        self.model = YOLO(model_path).to(device="cuda")
+        self.tracker = sv.ByteTrack()
         
     def detect_frames(self, frames):
         batch_size = 20
         detections = []
-        for i in range(0, len(detections), batch_size):
+        for i in range(0, len(frames), batch_size):
             detections_batch = self.model.predict(frames[i:i+batch_size], conf=0.1)
             detections += detections_batch
         return detections
@@ -119,7 +120,7 @@ class Tracker:
             frame = frame.copy()
             
             player_dict = tracks['players'][frame_num]
-            referee_dict = tracks['referee'][frame_num]
+            referee_dict = tracks['referees'][frame_num]
             ball_dict = tracks['ball'][frame_num]
             
             # annotate player
