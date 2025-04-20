@@ -23,7 +23,9 @@ def main():
         save_video(output_video_frames=output_video_frames, output_video_path='videos/output_videos/output_video.avi')
     else:
         # Run real-time video processing
-        run_realtime_video(video_path='videos/input_videos/match.mp4', model_path="models/large.pt")
+        run_realtime_video(video_path='videos/input_videos/match.mp4', model_path="models/nano.pt")
 
 if __name__ == "__main__":
     main()
+
+    

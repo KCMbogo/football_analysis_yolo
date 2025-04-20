@@ -47,14 +47,14 @@ def run_realtime_video(video_path, model_path):
         if not success:
             break
             
-        frame = cv2.resize(src=frame, dsize=(1280, 720))
+        frame = cv2.resize(src=frame, dsize=(640, 640))
         frame_buffer.append(frame)
         frame_count += 1
         
         # When we have enough frames in the buffer, process them
         if len(frame_buffer) >= batch_size:
             # Use the existing get_object_tracks function to handle detection and tracking
-            tracks = tracker.get_object_tracks(frames=frame_buffer, read_from_stub=False)
+            tracks = tracker.get_object_tracks(frames=frame_buffer)
             
             # Draw annotations on frames and display them
             annotated_frames = tracker.draw_annotations(video_frames=frame_buffer, tracks=tracks)

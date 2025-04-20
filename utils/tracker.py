@@ -13,7 +13,7 @@ class Tracker:
         batch_size = 20
         detections = []
         for i in range(0, len(frames), batch_size):
-            detections_batch = self.model.predict(frames[i:i+batch_size], conf=0.1)
+            detections_batch = self.model.predict(frames[i:i+batch_size], conf=0.5)
             detections += detections_batch
         return detections
     
@@ -141,7 +141,7 @@ class Tracker:
             
             # annotate player
             for track_id, player in player_dict.items():
-                frame = self.draw_ellipse(frame, player['bbox'], (0, 0, 255), track_id)
+                frame = self.draw_ellipse(frame, player['bbox'], (255, 255, 255), track_id)
                 
             # annotate referee
             for _, referee in referee_dict.items():
