@@ -47,7 +47,7 @@ def run_realtime_video(video_path, model_path):
         if not success:
             break
             
-        frame = cv2.resize(src=frame, dsize=(640, 640))
+        frame = cv2.resize(src=frame, dsize=(1280, 720))
         frame_buffer.append(frame)
         frame_count += 1
         
@@ -55,6 +55,15 @@ def run_realtime_video(video_path, model_path):
         if len(frame_buffer) >= batch_size:
             # Use the existing get_object_tracks function to handle detection and tracking
             tracks = tracker.get_object_tracks(frames=frame_buffer)
+
+            #### CROP A SINGLE PLAYER FROM A FRAME
+            # for track_id, player in tracks["players"][0].items():
+            #     bbox = player["bbox"]
+            #     frame = frame_buffer[0]
+
+            #     cropped_image = frame[int(bbox[1]):int(bbox[3]), int(bbox[0]):int(bbox[2])]
+            #     cv2.imwrite(filename=f"videos/output_videos/cropped_image.jpg", img=cropped_image)
+            #     break
             
             # Draw annotations on frames and display them
             annotated_frames = tracker.draw_annotations(video_frames=frame_buffer, tracks=tracks)
